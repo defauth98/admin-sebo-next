@@ -1,15 +1,22 @@
 import { useRouter } from 'next/router'
+import { useContext } from 'react';
 import { useForm } from "react-hook-form";
+import { authContext } from '../context/authContext';
 
 export default function Home() {
   const router = useRouter();
+  const { login, isAuthenticated } = useContext(authContext)
   const { register, handleSubmit, formState: { errors } } = useForm();
  
-  function onSubmit(data) {  
+  async function onSubmit(data) {  
     const {email, password} = data;
 
     if(email && password) {
-      router.push('/admin')
+      login(email, password)
+
+      if(isAuthenticated) {
+        router.push('/admin');
+      }
     }
   }
 
