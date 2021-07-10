@@ -21,12 +21,22 @@ export default function Home() {
   }
 
   return (
-   <main>
-     <form onSubmit={handleSubmit(onSubmit)}>
+   <main className="h-screen flex items-center justify-center bg-gray-300">
+     <form 
+     onSubmit={handleSubmit(onSubmit)}
+      className="flex flex-col"
+     >
+
+      <h1 
+        className="text-center my-4 text-2xl"
+      > Faça seu login</h1>
+
       <input 
         type="email" 
         name="email" 
         id="email"
+        placeholder="email@mail.com"
+        className="border-2 border-gray-600 rounded px-4 py-2"
         {...register("email", { required: true })} />
         {errors.email && <span>This field is required</span>}
 
@@ -34,10 +44,15 @@ export default function Home() {
         type="password"
         name="password" 
         id="password"
+        className="border-2 border-gray-600 rounded px-4 py-2 my-2"
+        placeholder="******"
         {...register("password", { required: true })} />
         {errors.password && <span>This field is required</span>}
 
-      <button type="submit">Entrar</button>
+      <button 
+        type="submit"
+        className="my-4 bg-gray-500 py-2 rounded text-white"
+      >Entrar</button>
      </form>
    </main>
   )
