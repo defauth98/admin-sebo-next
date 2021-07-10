@@ -1,7 +1,7 @@
-import { createContext, useCallback, useState } from "react";
+import { createContext, Dispatch, SetStateAction, useCallback, useState } from "react";
 import booksApi from "../services/api";
 
-interface Books {
+export interface Books {
   title: String;
   description: String;
   price: String;
@@ -14,6 +14,7 @@ interface Books {
 interface IAuthContext {
   login: (email: String, password: String) => void;
   getBooks: () => void;
+  setBooks: Dispatch<SetStateAction<any[]>>; 
   email: String;
   id: Number;
   isAuthenticated: boolean;
@@ -57,7 +58,7 @@ function AuthContextProvider({children}) {
   }, [])
 
   return (  
-    <authContext.Provider value={{login, email, id,isAuthenticated, books, getBooks}}>
+    <authContext.Provider value={{login, email, id,isAuthenticated, books,setBooks, getBooks}}>
       {children}
     </authContext.Provider>
   )

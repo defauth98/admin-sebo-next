@@ -1,22 +1,32 @@
 import router from "next/router";
 import { useContext, useEffect } from "react";
 import BookCard from "../components/BookCard";
-import { authContext } from "../context/authContext";
+import { authContext, Books } from "../context/authContext";
+import booksApi from "../services/api";
 
-const Admin: React.FC = () => {
-  const { email, isAuthenticated, getBooks, books } = useContext(authContext);
+interface AdminProps {
+  ServerSideBooks: Array<Books>
+}
+
+const Admin: React.FC<AdminProps> = (props) => {
+  const { email, isAuthenticated, getBooks, books, setBooks } = useContext(authContext);
 
   useEffect(() => {
     isAuthenticated === false ? router.push('/') : null;
   }, [isAuthenticated])
 
   useEffect(() => {
-    getBooks()
-  }, [getBooks])
+    if(props.ServerSideBooks.length > 0){
+      setBooks(props.ServerSideBooks)
+      return;
+    }
+
+    getBooks();
+  }, [getBooks,props.ServerSideBooks, setBooks])
 
   return (
     <main>
-      <h1>Admin PAge</h1>
+      <h1>Admin Page</h1>
       <span>{email}</span>
 
       <ul>
@@ -25,5 +35,18 @@ const Admin: React.FC = () => {
     </main>
   );
 }
+
+export async function getStaticProps() {
+  const request = await booksApi.get('/book');
+
+  const ServerSideBooks = request.data;
+
+  return {
+    props: {
+      ServerSideBooks,
+    },
+  }
+}
+
 
 export default Admin;
