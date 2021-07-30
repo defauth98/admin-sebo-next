@@ -9,11 +9,7 @@ interface AdminProps {
 }
 
 const Admin: React.FC<AdminProps> = (props) => {
-  const { email, isAuthenticated, getBooks, books, setBooks } = useContext(authContext);
-
-  useEffect(() => {
-    isAuthenticated === false ? router.push('/') : null;
-  }, [isAuthenticated])
+  const { email, getBooks, books, setBooks } = useContext(authContext);
 
   useEffect(() => {
     if(props.ServerSideBooks.length > 0){

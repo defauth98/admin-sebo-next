@@ -24,7 +24,6 @@ interface IAuthContext {
 export const authContext = createContext<IAuthContext>({} as IAuthContext)
 
 function AuthContextProvider({children}) {
-  const [isAuthenticated, setisAuthenticated] = useState(false);
   const [email, setEmail] = useState('');
   const [id, setId] = useState(0);
   const [books, setBooks] = useState([])
@@ -40,7 +39,6 @@ function AuthContextProvider({children}) {
 
       setEmail(email);
       setId(id);
-      setisAuthenticated(true);
     }
   }
 
@@ -53,12 +51,20 @@ function AuthContextProvider({children}) {
       console.log(books)
       setBooks(books)
     }
-
-    
   }, [])
 
   return (  
-    <authContext.Provider value={{login, email, id,isAuthenticated, books,setBooks, getBooks}}>
+    <authContext.Provider value={
+      {
+        login, 
+        email, 
+        id,isAuthenticated: !email,
+        books,
+        setBooks,
+        getBooks
+      }
+      }
+    >
       {children}
     </authContext.Provider>
   )

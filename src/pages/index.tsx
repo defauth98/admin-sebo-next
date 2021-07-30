@@ -12,11 +12,9 @@ export default function Home() {
     const {email, password} = data;
 
     if(email && password) {
-      login(email, password)
+      login(email, password);
 
-      if(isAuthenticated) {
-        router.push('/admin');
-      }
+      router.push('/admin');
     }
   }
 
@@ -51,7 +49,7 @@ export default function Home() {
 
       <button 
         type="submit"
-        className="my-4 bg-gray-500 py-2 rounded text-white"
+        className="my-4 bg-grayar-500 py-2 rounded text-white bg-gray-400"
       >Entrar</button>
      </form>
    </main>
