@@ -1,18 +1,24 @@
-function BookCard({book}) {
+import { Card } from 'react-bootstrap';
+
+function BookCard({ book }) {
   return (
-    <li>
-      <span>{book.title}</span>
-      <br />
-      <p>{book.description}</p>
-      <br />
-      <strong>{book.price}</strong>
-      <br />
-      <span>{book.publisher}</span>
-      <span>{book.state_book}</span>
-      <span>{book.date_edition}</span>
-      <span>{book.id}</span>
+    <li className="">
+      <Card style={{ width: '18rem' }}>
+        <Card.Body>
+          <Card.Title>
+            <h3>{book.title}</h3>
+          </Card.Title>
+          <Card.Text>
+            <p>{book.date_edition}</p>
+          </Card.Text>
+
+          <Card.Text>
+            <p>{book.description}</p>
+          </Card.Text>
+        </Card.Body>
+      </Card>
     </li>
-  )
+  );
 }
 
 export default BookCard;
