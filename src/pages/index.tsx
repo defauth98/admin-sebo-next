@@ -1,17 +1,18 @@
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
 import { useContext } from 'react';
-import { useForm } from "react-hook-form";
+import { useForm } from 'react-hook-form';
+import { Form, Button, Container } from 'react-bootstrap';
 import { authContext } from '../context/authContext';
 
 export default function Home() {
   const router = useRouter();
-  const { login, isAuthenticated } = useContext(authContext)
+  const { login } = useContext(authContext);
   const { register, handleSubmit, formState: { errors } } = useForm();
- 
-  async function onSubmit(data) {  
-    const {email, password} = data;
 
-    if(email && password) {
+  async function onSubmit(data) {
+    const { email, password } = data;
+
+    if (email && password) {
       login(email, password);
 
       router.push('/admin');
@@ -19,39 +20,28 @@ export default function Home() {
   }
 
   return (
-   <main className="h-screen flex items-center justify-center bg-gray-300">
-     <form 
-     onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col"
-     >
+    <Container className="w-25 p-3 border">
+      <h1> Faça seu login</h1>
+      <Form onSubmit={handleSubmit(onSubmit)} className="mt-8">
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Label>Email address</Form.Label>
+          <Form.Control
+            type="email"
+            placeholder="Enter email"
+            {...register('email', { required: true })}
+          />
+          {errors.email && <span>This field is required</span>}
+        </Form.Group>
 
-      <h1 
-        className="text-center my-4 text-2xl"
-      > Faça seu login</h1>
-
-      <input 
-        type="email" 
-        name="email" 
-        id="email"
-        placeholder="email@mail.com"
-        className="border-2 border-gray-600 rounded px-4 py-2"
-        {...register("email", { required: true })} />
-        {errors.email && <span>This field is required</span>}
-
-      <input 
-        type="password"
-        name="password" 
-        id="password"
-        className="border-2 border-gray-600 rounded px-4 py-2 my-2"
-        placeholder="******"
-        {...register("password", { required: true })} />
-        {errors.password && <span>This field is required</span>}
-
-      <button 
-        type="submit"
-        className="my-4 bg-grayar-500 py-2 rounded text-white bg-gray-400"
-      >Entrar</button>
-     </form>
-   </main>
-  )
+        <Form.Group className="mb-3" controlId="formBasicPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control type="password" placeholder="Password" {...register('password', { required: true })} />
+          {errors.password && <span>This field is required</span>}
+        </Form.Group>
+        <Button variant="primary" type="submit">
+          Submit
+        </Button>
+      </Form>
+    </Container>
+  );
 }

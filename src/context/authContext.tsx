@@ -1,5 +1,7 @@
-import { createContext, Dispatch, SetStateAction, useCallback, useState } from "react";
-import booksApi from "../services/api";
+import {
+  createContext, Dispatch, SetStateAction, useCallback, useState,
+} from 'react';
+import booksApi from '../services/api';
 
 export interface Books {
   title: String;
@@ -14,28 +16,28 @@ export interface Books {
 interface IAuthContext {
   login: (email: String, password: String) => void;
   getBooks: () => void;
-  setBooks: Dispatch<SetStateAction<any[]>>; 
+  setBooks: Dispatch<SetStateAction<any[]>>;
   email: String;
   id: Number;
   isAuthenticated: boolean;
   books: Array<Books>
 }
 
-export const authContext = createContext<IAuthContext>({} as IAuthContext)
+export const authContext = createContext<IAuthContext>({} as IAuthContext);
 
-function AuthContextProvider({children}) {
+function AuthContextProvider({ children }) {
   const [email, setEmail] = useState('');
   const [id, setId] = useState(0);
-  const [books, setBooks] = useState([])
+  const [books, setBooks] = useState([]);
 
   async function login(email: String, password: String) {
-    const response = await booksApi.post('/login', {email, password});
+    const response = await booksApi.post('/login', { email, password });
 
-    if(response.status === 200) {
-      const {email, id} =  response.data?.user;
-      const {token} = response.data;
+    if (response.status === 200) {
+      const { email, id } = response.data?.user;
+      const { token } = response.data;
 
-      booksApi.defaults.headers.common = {'Authorization': `bearer ${token}`}
+      booksApi.defaults.headers.common = { Authorization: `bearer ${token}` };
 
       setEmail(email);
       setId(id);
@@ -48,26 +50,26 @@ function AuthContextProvider({children}) {
     const books = request.data;
 
     if (books.length > 0) {
-      console.log(books)
-      setBooks(books)
+      setBooks(books);
     }
-  }, [])
+  }, []);
 
-  return (  
+  return (
     <authContext.Provider value={
       {
-        login, 
-        email, 
-        id,isAuthenticated: !email,
+        login,
+        email,
+        id,
+        isAuthenticated: !email,
         books,
         setBooks,
-        getBooks
+        getBooks,
       }
-      }
+    }
     >
       {children}
     </authContext.Provider>
-  )
+  );
 }
 
 export default AuthContextProvider;

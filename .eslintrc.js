@@ -1,7 +1,6 @@
 module.exports = {
   env: {
     browser: true,
-    es2021: true,
   },
   extends: [
     'plugin:react/recommended',
@@ -20,7 +19,14 @@ module.exports = {
     '@typescript-eslint',
   ],
   rules: {
-    'react/jsx-filename-extension': [1, { allow: 'as-needed' }],
-    'react/react-in-jsx-scope': [{allow: 'disable'}],
+    'react/jsx-filename-extension': 'off',
+    'react/react-in-jsx-scope': 'off',
+    'react/jsx-props-no-spreading': 'off',
+    'import/no-unresolved': 'off',
+    'import/extensions':'off',
+    'react/prop-types':'off',
+    'no-use-before-define': 'off',
+    'camelcase': 'off',
+    'no-param-reassign':'off'
   },
 };

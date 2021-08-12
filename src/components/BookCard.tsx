@@ -1,23 +1,16 @@
-import { Card } from 'react-bootstrap';
-
 function BookCard({ book }) {
   return (
-    <li className="">
-      <Card style={{ width: '18rem' }}>
-        <Card.Body>
-          <Card.Title>
-            <h3>{book.title}</h3>
-          </Card.Title>
-          <Card.Text>
-            <p>{book.date_edition}</p>
-          </Card.Text>
-
-          <Card.Text>
-            <p>{book.description}</p>
-          </Card.Text>
-        </Card.Body>
-      </Card>
-    </li>
+    <tr>
+      <td>{book.title}</td>
+      <td>{book.price}</td>
+      <td>{book.publisher.name}</td>
+      <td>{book.state_book}</td>
+      <td>{book.date_edition}</td>
+      <td>
+        <button type="button">editar</button>
+        <button type="button">excluir</button>
+      </td>
+    </tr>
   );
 }
 
