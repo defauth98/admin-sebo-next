@@ -1,4 +1,6 @@
-function BookCard({ book }) {
+import Link from 'next/link';
+
+function BookCard({ book, handleDelete }) {
   return (
     <tr>
       <td>{book.title}</td>
@@ -7,8 +9,11 @@ function BookCard({ book }) {
       <td>{book.state_book}</td>
       <td>{book.date_edition}</td>
       <td>
-        <button type="button">editar</button>
-        <button type="button">excluir</button>
+        <Link href={`/editBook/${book.id}`}>
+          <button type="button">Editar</button>
+        </Link>
+
+        <button type="button" onClick={() => handleDelete(book.id)}>Excluir</button>
       </td>
     </tr>
   );

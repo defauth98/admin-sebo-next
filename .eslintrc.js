@@ -27,6 +27,8 @@ module.exports = {
     'react/prop-types':'off',
     'no-use-before-define': 'off',
     'camelcase': 'off',
-    'no-param-reassign':'off'
+    'no-param-reassign':'off',
+    'no-shadow':'off',
+    'no-unused-vars':'off'
   },
 };

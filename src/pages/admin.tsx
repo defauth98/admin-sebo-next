@@ -11,19 +11,20 @@ interface AdminProps {
   ServerSideBooks: Array<Books>
 }
 
-const Admin: React.FC<AdminProps> = ({ ServerSideBooks }) => {
+const Admin: React.FC<AdminProps> = () => {
   const {
-    email, getBooks, books, setBooks,
+    email, getBooks, books,
   } = useContext(authContext);
 
   useEffect(() => {
-    if (ServerSideBooks.length > 0) {
-      setBooks(ServerSideBooks);
-      return;
-    }
+    getBooks();
+  }, [getBooks]);
+
+  async function handleDelete(id: String) {
+    await booksApi.delete(`/book/${id}`);
 
     getBooks();
-  }, [getBooks, ServerSideBooks, setBooks]);
+  }
 
   return (
     <Container>
@@ -46,7 +47,13 @@ const Admin: React.FC<AdminProps> = ({ ServerSideBooks }) => {
           </tr>
         </thead>
         <tbody>
-          {books.length >= 1 && books.map((book) => <BookCard key={String(book.id)} book={book} />)}
+          {books.length >= 1 && books.map((book) => (
+            <BookCard
+              key={String(book.id)}
+              book={book}
+              handleDelete={handleDelete}
+            />
+          ))}
         </tbody>
       </Table>
     </Container>

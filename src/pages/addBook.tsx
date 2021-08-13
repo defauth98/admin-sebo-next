@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 
 import booksApi from '../services/api';
 
-const Admin: React.FC = () => {
+const AddBook: React.FC = () => {
   useEffect(() => {}, []);
 
   const { register, handleSubmit, formState: { errors } } = useForm();
@@ -59,4 +59,4 @@ const Admin: React.FC = () => {
   );
 };
 
-export default Admin;
+export default AddBook;
