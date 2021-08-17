@@ -29,6 +29,7 @@ module.exports = {
     'camelcase': 'off',
     'no-param-reassign':'off',
     'no-shadow':'off',
-    'no-unused-vars':'off'
+    'no-unused-vars':'off',
+    'no-alert': 'off',
   },
 };

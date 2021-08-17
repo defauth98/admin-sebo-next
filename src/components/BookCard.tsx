@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { Button } from 'react-bootstrap';
 
 function BookCard({ book, handleDelete }) {
   return (
@@ -10,10 +11,18 @@ function BookCard({ book, handleDelete }) {
       <td>{book.date_edition}</td>
       <td>
         <Link href={`/editBook/${book.id}`}>
-          <button type="button">Editar</button>
+          <Button type="button" variant="secondary">Editar</Button>
         </Link>
 
-        <button type="button" onClick={() => handleDelete(book.id)}>Excluir</button>
+        <Button
+          type="button"
+          variant="danger"
+          onClick={() => handleDelete(book.id)}
+          className="ms-2"
+        >
+          Excluir
+
+        </Button>
       </td>
     </tr>
   );

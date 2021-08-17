@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { Container, Table } from 'react-bootstrap';
+import { Button, Container, Table } from 'react-bootstrap';
 import Link from 'next/link';
 
 import BookCard from '../components/BookCard';
@@ -28,12 +28,8 @@ const Admin: React.FC<AdminProps> = () => {
 
   return (
     <Container>
-      <h1>Admin Page</h1>
+      <h1 className="mt-2 mb-2">Admin Page</h1>
       <span>{email}</span>
-
-      <Link href="/addBook">
-        adicionar
-      </Link>
 
       <Table striped bordered hover>
         <thead>
@@ -56,6 +52,10 @@ const Admin: React.FC<AdminProps> = () => {
           ))}
         </tbody>
       </Table>
+
+      <Link href="/addBook">
+        <Button type="submit" variant="primary">Cadastrar livro</Button>
+      </Link>
     </Container>
   );
 };
