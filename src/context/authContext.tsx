@@ -16,6 +16,7 @@ export interface Books {
 interface IAuthContext {
   login: (email: String, password: String) => void;
   getBooks: () => void;
+  search: (title: any) => void;
   setBooks: Dispatch<SetStateAction<any[]>>;
   email: String;
   id: Number;
@@ -54,6 +55,14 @@ function AuthContextProvider({ children }) {
     }
   }, []);
 
+  const search = useCallback(async (data) => {
+    const request = await booksApi.get(`/search/${data.title}`);
+
+    const books = request.data;
+
+    setBooks(books);
+  }, []);
+
   return (
     <authContext.Provider value={
       {
@@ -62,6 +71,7 @@ function AuthContextProvider({ children }) {
         id,
         isAuthenticated: !email,
         books,
+        search,
         setBooks,
         getBooks,
       }

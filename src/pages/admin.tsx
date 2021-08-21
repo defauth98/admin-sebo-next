@@ -1,5 +1,8 @@
 import React, { useContext, useEffect } from 'react';
-import { Button, Container, Table } from 'react-bootstrap';
+import { useForm } from 'react-hook-form';
+import {
+  Button, Container, Form, Table,
+} from 'react-bootstrap';
 import Link from 'next/link';
 
 import BookCard from '../components/BookCard';
@@ -13,8 +16,10 @@ interface AdminProps {
 
 const Admin: React.FC<AdminProps> = () => {
   const {
-    email, getBooks, books,
+    email, getBooks, books, search,
   } = useContext(authContext);
+
+  const { register, handleSubmit, formState: { errors } } = useForm();
 
   useEffect(() => {
     getBooks();
@@ -26,10 +31,31 @@ const Admin: React.FC<AdminProps> = () => {
     getBooks();
   }
 
+  function handleSearch({ bookTitle }) {
+    search({ title: String(bookTitle) });
+  }
+
   return (
     <Container>
-      <h1 className="mt-2 mb-2">Admin Page</h1>
-      <span>{email}</span>
+      <div>
+        <h1 className="mt-2 mb-2">Admin Page</h1>
+        <span>{email}</span>
+      </div>
+
+      <Form onSubmit={handleSubmit(handleSearch)} className="mt-2 mb-2">
+        <Form.Group className="mb-2" controlId="bookTitle">
+          <Form.Label>Buscar do título</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Harry Potter"
+            {...register('bookTitle', { required: true })}
+          />
+          {errors.bookTitle && <span>This field is required</span>}
+        </Form.Group>
+        <Button variant="primary" type="submit">
+          Buscar
+        </Button>
+      </Form>
 
       <Table striped bordered hover>
         <thead>
